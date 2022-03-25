@@ -9,6 +9,9 @@ export default {
     width: 50,
     height: 50
   },
+  straw: {
+    num: 20
+  },
   images: {
     straw,
     tank: straw,

@@ -17,15 +17,30 @@ export default abstract class canvasAbstract {
     this.app.insertAdjacentElement('afterbegin', this.el)
   }
 
-  protected drawModels() {
-      const position = this.position()
-      console.log(this.canvas);
+  protected drawModels(num:number) {
+    this.positionCollection(num).forEach(position => {
       this.canvas.drawImage(image.get('straw')!, position.x, position.y, config.model.width, config.model.height)
+    })
+  }
+  // 批量获取唯一草地坐标
+  protected positionCollection(num: number) {
+    const colleciton = [] as {x: number; y: number}[]
+    for(let i = 0; i < num; i++){
+      while(true) {
+        const position = this.position()
+        const exists = colleciton.some(c=>c.x == position.x && c.y == position.y)
+        if(!exists) {
+          colleciton.push(position)
+          break
+        }
+      }
+    }
+    return colleciton
   }
   protected position() {
     return { 
-      x: 20,
-      y: 30
+      x: Math.floor(Math.random()*(config.canvas.width/config.model.width)) * config.model.width,
+      y: Math.floor(Math.random()*(config.canvas.height/config.model.height)) * config.model.height,
     }
   }
 }
