@@ -1,14 +1,14 @@
 import config from "../config"
-import imgUrl from "../static/images/straw/straw.png"
+import { image } from "../service/images"
 export default abstract class canvasAbstract {
   protected item = []
+  abstract render():void
   constructor(
     protected app = document.querySelector('#app') as HTMLDivElement,
     protected el = document.createElement('canvas'),
     protected canvas = el.getContext('2d')!
   ) {
     this.createCanvas()
-    this.drawModels()
   }
   protected createCanvas() {
     this.el.width = config.canvas.width
@@ -18,12 +18,9 @@ export default abstract class canvasAbstract {
   }
 
   protected drawModels() {
-    const img = document.createElement('img')
-    img.src = imgUrl,
-    img.onload = () => {
       const position = this.position()
-      this.canvas.drawImage(img, position.x, position.y, config.model.width, config.model.height)
-    }
+      console.log(this.canvas);
+      this.canvas.drawImage(image.get('straw')!, position.x, position.y, config.model.width, config.model.height)
   }
   protected position() {
     return { 

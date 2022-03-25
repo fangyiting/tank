@@ -1,3 +1,5 @@
+import straw from "./static/images/straw/straw.png"
+
 export default {
   canvas: {
     width: 900,
@@ -6,5 +8,10 @@ export default {
   model: {
     width: 50,
     height: 50
+  },
+  images: {
+    straw,
+    tank: straw,
+    wall: straw
   }
 }
