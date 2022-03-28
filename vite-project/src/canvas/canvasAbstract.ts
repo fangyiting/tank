@@ -1,7 +1,7 @@
 import config from "../config"
-import { image } from "../service/images"
+import position from "../service/position"
 export default abstract class canvasAbstract {
-  protected item = []
+  protected models: IModel [] = []
   abstract render():void
   constructor(
     protected app = document.querySelector('#app') as HTMLDivElement,
@@ -10,6 +10,7 @@ export default abstract class canvasAbstract {
   ) {
     this.createCanvas()
   }
+  // 创建画布
   protected createCanvas() {
     this.el.width = config.canvas.width
     this.el.height = config.canvas.height
@@ -17,31 +18,18 @@ export default abstract class canvasAbstract {
     this.app.insertAdjacentElement('afterbegin', this.el)
   }
 
-  protected drawModels(num:number, model:any) {
-    this.positionCollection(num).forEach(position => {
-      new model(this.canvas, position.x, position.y)
-      this.canvas.drawImage(image.get('straw')!, position.x, position.y, config.model.width, config.model.height)
+  // 生成模型实例
+  protected createModels(num:number, model: ModelConstructor) {
+    position.getCollection(num).forEach(position => {
+      const instance = new model(this.canvas, position.x, position.y)
+      this.models.push(instance)
+      // this.canvas.drawImage(image.get('straw')!, position.x, position.y, config.model.width, config.model.height)
     })
   }
-  // 批量获取唯一草地坐标
-  protected positionCollection(num: number) {
-    const colleciton = [] as {x: number; y: number}[]
-    for(let i = 0; i < num; i++){
-      while(true) {
-        const position = this.position()
-        const exists = colleciton.some(c=>c.x == position.x && c.y == position.y)
-        if(!exists) {
-          colleciton.push(position)
-          break
-        }
-      }
-    }
-    return colleciton
+
+  // 将模型渲染到画布上
+  protected renderModels() {
+    this.models.forEach(model => model.render())
   }
-  protected position() {
-    return { 
-      x: Math.floor(Math.random()*(config.canvas.width/config.model.width)) * config.model.width,
-      y: Math.floor(Math.random()*(config.canvas.height/config.model.height)) * config.model.height,
-    }
-  }
+  
 }
