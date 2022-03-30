@@ -2,7 +2,7 @@ import config from "../config"
 import canvasAbstract from "./canvasAbstract"
 import model from "../model/straw"
 
-class straw extends canvasAbstract {
+class straw extends canvasAbstract implements ICanvas {
   render(): void {
     super.createModels()
     super.renderModels()

@@ -6,6 +6,7 @@ import water from './canvas/water'
 import './service/images'
 import { promise } from './service/images'
 import steels from './canvas/steels'
+import tank from './canvas/tank'
 
 
 
@@ -19,6 +20,7 @@ async function bootstrap() {
   wall.render()
   water.render()
   steels.render()
+  tank.render()
 }
 
 void bootstrap()
