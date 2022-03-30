@@ -3,12 +3,15 @@ import canvasAbstract from "./canvasAbstract"
 import model from "../model/straw"
 
 class straw extends canvasAbstract {
-  constructor() {
-    super()
-    super.createModels(config.straw.num, model)
-  }
   render(): void {
+    super.createModels()
     super.renderModels()
+  }
+  num(): number {
+    return config.straw.num
+  }
+  model(): ModelConstructor {
+    return model
   }
   
 }

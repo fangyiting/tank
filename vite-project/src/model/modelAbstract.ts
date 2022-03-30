@@ -1,12 +1,11 @@
 import config from "../config";
-import { image } from "../service/images";
 
 export default abstract class modelAbstract{
   abstract render(): void
   constructor(protected canvas: CanvasRenderingContext2D, protected x: number, protected y: number) {
   }
 
-  protected draw() {
-    this.canvas.drawImage(image.get('straw')!, this.x, this.y, config.model.width, config.model.height)
+  protected draw(img: HTMLImageElement) {
+    this.canvas.drawImage(img, this.x, this.y, config.model.width, config.model.height)
   }
 }

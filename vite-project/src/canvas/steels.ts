@@ -1,0 +1,19 @@
+import config from "../config"
+import canvasAbstract from "./canvasAbstract"
+import model from "../model/steels"
+
+class steels extends canvasAbstract {
+  num(): number {
+    return config.steels.num
+  }
+  model(): ModelConstructor {
+    return  model
+  }
+  render(): void {
+    super.createModels()
+    super.renderModels()
+  }
+  
+}
+
+export default new steels()
