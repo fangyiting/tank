@@ -13,18 +13,25 @@ class tank extends canvasAbstract implements ICanvas {
   render(): void {
     this.createModels()
     super.renderModels()
+    setInterval(() => this.renderModels(), config.timeout)
   }
-   // 生成模型实例
-   protected createModels() {
-     for(let i = 0; i < this.num(); i++) {
-       const pos = position.position()
+  // 生成模型实例
+  protected createModels() {
+    for (let i = 0; i < this.num(); i++) {
+      const pos = position.position()
       const model = this.model()
-      const instance = new model(this.canvas, pos.x, 0)
+      const instance = new model(pos.x, 0)
       this.models.push(instance)
       // this.canvas.drawImage(image.get('straw')!, position.x, position.y, config.model.width, config.model.height)
     }
   }
-  
+
+  // 将模型渲染到画布上s
+  protected renderModels() {
+    this.ctx.clearRect(0, 0, config.canvas.width, config.canvas.height);
+    super.renderModels()
+  }
+
 }
 
 export default new tank()

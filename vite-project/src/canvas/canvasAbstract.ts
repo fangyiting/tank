@@ -1,14 +1,14 @@
 import config from "../config"
 import position from "../service/position"
 export default abstract class canvasAbstract {
-  protected models: IModel [] = []
+  public models: IModel[] = []
   abstract num(): number
   abstract model(): ModelConstructor
-  abstract render():void
+  abstract render(): void
   constructor(
     protected app = document.querySelector('#app') as HTMLDivElement,
     protected el = document.createElement('canvas'),
-    protected canvas = el.getContext('2d')!
+    public ctx = el.getContext('2d')!
   ) {
     this.createCanvas()
   }
@@ -24,7 +24,7 @@ export default abstract class canvasAbstract {
   protected createModels() {
     position.getCollection(this.num()).forEach(position => {
       const model = this.model()
-      const instance = new model(this.canvas, position.x, position.y)
+      const instance = new model( position.x, position.y)
       this.models.push(instance)
       // this.canvas.drawImage(image.get('straw')!, position.x, position.y, config.model.width, config.model.height)
     })
@@ -34,5 +34,6 @@ export default abstract class canvasAbstract {
   protected renderModels() {
     this.models.forEach(model => model.render())
   }
-  
+
+
 }
